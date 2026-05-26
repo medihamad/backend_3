@@ -151,3 +151,28 @@ const updateStudent = (req, res) =>{
         })
     }
 }
+
+const deleteStudent = async (req, res) =>{
+    const id = req.params.id;
+
+    const index = Student.findIndex(s => s.id === id);
+
+    const deletedStudent = Student.splice(index, 1);
+
+    if(index === -1) res.status(404).json({
+        message: 'student not found'
+    })
+
+    res.status(200).json({
+        message: 'student deleted',
+        deletedStudent
+    })
+}
+
+module.exports = {
+    createStudent,
+    getAllStudents,
+    getOneStudent,
+    updateStudent,
+    deleteStudent
+}
