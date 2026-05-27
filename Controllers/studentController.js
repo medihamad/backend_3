@@ -45,7 +45,7 @@ const createStudent = async (req, res) => {
 
         res.status(201).json({
             message: 'Student inserted successfully',
-            data: student
+            
         })
 }
 
@@ -95,7 +95,7 @@ const getOneStudent = async (req, res) =>{
     const id = req.params.id;
 
     try{
-        const student = await Students.find(s => s.id === id);
+        const student = await Student.find(s => s.id === id);
 
         //2. 
         if(!student) res.status(404).json({

@@ -28,7 +28,7 @@ const studentSchema = mongoose.Schema({
 
     isActive: {
         type: Boolean,
-        default: 'Yes'
+        default: true
     }
 
 }, { timestamps: true })
