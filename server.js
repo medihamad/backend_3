@@ -8,6 +8,7 @@ const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const { v4: uuidv4 } = require('uuid')
+const fs = require('fs');
 
 require('dotenv').config();
 
@@ -63,6 +64,8 @@ app.get('/get-cookie', (req, res)=>{
     res.status(200).json({
         username
     })
+
+
 })
 
 app.get('/clear-cookie', (req, res)=>{

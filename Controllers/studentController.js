@@ -95,7 +95,7 @@ const getOneStudent = async (req, res) =>{
     const id = req.params.id;
 
     try{
-        const student = await Student.find(s => s.id === id);
+        const student = await Student.findById(id)
 
         //2. 
         if(!student) res.status(404).json({
@@ -115,7 +115,7 @@ const getOneStudent = async (req, res) =>{
 
 //4. update student
 
-const updateStudent = (req, res) =>{
+const updateStudent = async (req, res) =>{
     /*
         - to get update student we need the following
         1. we need to use the id student we wish to update
@@ -130,7 +130,7 @@ const updateStudent = (req, res) =>{
         const id = req.params.id;
         const { name, age } = req.body;
 
-        const student = Student.find(s => s.id === id);
+        const student = await Student.findByIdAndUpdate(id, { name, age }, { returnDocument: 'after'});
 
         if(!student) res.status(404).json({
             message: 'student not found'
@@ -141,13 +141,13 @@ const updateStudent = (req, res) =>{
 
         res.status(200).json({
             message: 'student updated successfully',
-            student
+            student,
         })
 
     }
     catch(error){
         res.status(500).json({
-            message: err.message
+            message: error.message
         })
     }
 }
@@ -155,11 +155,9 @@ const updateStudent = (req, res) =>{
 const deleteStudent = async (req, res) =>{
     const id = req.params.id;
 
-    const index = Student.findIndex(s => s.id === id);
-
-    const deletedStudent = Student.splice(index, 1);
-
-    if(index === -1) res.status(404).json({
+    const deletedStudent = await Student.findByIdAndDelete(id)
+    
+    if(!deleteStudent) res.status(404).json({
         message: 'student not found'
     })
 
